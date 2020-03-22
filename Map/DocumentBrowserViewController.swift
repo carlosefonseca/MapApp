@@ -8,6 +8,7 @@
 
 import UIKit
 import SwiftUI
+import MapCore
 
 class DocumentBrowserViewController: UIDocumentBrowserViewController, UIDocumentBrowserViewControllerDelegate {
     
@@ -71,7 +72,7 @@ class DocumentBrowserViewController: UIDocumentBrowserViewController, UIDocument
                 // Display the content of the document:
                 let view = DocumentView(document: document, dismiss: {
                     self.closeDocument(document)
-                })
+                    }).environmentObject(document)
 
                 let documentViewController = UIHostingController(rootView: view)
                 self.present(documentViewController, animated: true, completion: nil)

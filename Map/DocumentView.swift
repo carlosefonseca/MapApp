@@ -7,21 +7,26 @@
 //
 
 import SwiftUI
+import MapCore
+
 
 struct DocumentView: View {
-    var document: UIDocument
+    var document: Document
     var dismiss: () -> Void
 
+    
+    
     var body: some View {
         VStack {
             HStack {
-                Text("File Name")
-                    .foregroundColor(.secondary)
+                Text("File Name") .foregroundColor(.secondary)
 
                 Text(document.fileURL.lastPathComponent)
+                Button("Done", action: dismiss)
             }
+            MapView()//.environmentObject(document)
+            .edgesIgnoringSafeArea(.all)
 
-            Button("Done", action: dismiss)
         }
     }
 }

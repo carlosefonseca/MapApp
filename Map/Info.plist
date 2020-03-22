@@ -7,18 +7,24 @@
 	<key>CFBundleDocumentTypes</key>
 	<array>
 		<dict>
-			<key>CFBundleTypeIconFiles</key>
-			<array/>
-			<key>CFBundleTypeName</key>
-			<string>Images</string>
-			<key>CFBundleTypeRole</key>
-			<string>Viewer</string>
 			<key>LSHandlerRank</key>
 			<string>Alternate</string>
+			<key>CFBundleTypeExtensions</key>
+			<array>
+				<string>geojson</string>
+			</array>
+			<key>LSTypeIsPackage</key>
+			<false/>
+			<key>CFBundleTypeName</key>
+			<string>GeoJSON File</string>
+			<key>CFBundleTypeIconFile</key>
+			<string>geojson</string>
 			<key>LSItemContentTypes</key>
 			<array>
-				<string>public.image</string>
+				<string>com.apple.dt.document.geojson</string>
 			</array>
+			<key>CFBundleTypeRole</key>
+			<string>Viewer</string>
 		</dict>
 	</array>
 	<key>CFBundleExecutable</key>
@@ -62,7 +68,23 @@
 	<true/>
 	<key>UTImportedTypeDeclarations</key>
 	<array>
-		<dict/>
+		<dict>
+			<key>UTTypeIdentifier</key>
+			<string>com.apple.dt.document.geojson</string>
+			<key>UTTypeConformsTo</key>
+			<array>
+				<string>public.json</string>
+			</array>
+			<key>UTTypeDescription</key>
+			<string>GeoJSON File</string>
+			<key>UTTypeTagSpecification</key>
+			<dict>
+				<key>public.filename-extension</key>
+				<array>
+					<string>geojson</string>
+				</array>
+			</dict>
+		</dict>
 	</array>
 </dict>
 </plist>

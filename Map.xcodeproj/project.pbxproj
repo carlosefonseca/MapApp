@@ -3,19 +3,35 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 50;
+	objectVersion = 52;
 	objects = {
 
 /* Begin PBXBuildFile section */
 		2D84C7412427C2930083BD3B /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2D84C7402427C2930083BD3B /* AppDelegate.swift */; };
 		2D84C7432427C2930083BD3B /* DocumentBrowserViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2D84C7422427C2930083BD3B /* DocumentBrowserViewController.swift */; };
 		2D84C7452427C2930083BD3B /* DocumentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2D84C7442427C2930083BD3B /* DocumentView.swift */; };
-		2D84C7472427C2930083BD3B /* Document.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2D84C7462427C2930083BD3B /* Document.swift */; };
 		2D84C74A2427C2930083BD3B /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 2D84C7482427C2930083BD3B /* Main.storyboard */; };
 		2D84C74C2427C2960083BD3B /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 2D84C74B2427C2960083BD3B /* Assets.xcassets */; };
 		2D84C74F2427C2960083BD3B /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 2D84C74D2427C2960083BD3B /* LaunchScreen.storyboard */; };
 		2D84C75A2427C2960083BD3B /* MapTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2D84C7592427C2960083BD3B /* MapTests.swift */; };
 		2D84C7652427C2960083BD3B /* MapUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2D84C7642427C2960083BD3B /* MapUITests.swift */; };
+		2D84C7802427CF7C0083BD3B /* MapCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2D84C7772427CF7C0083BD3B /* MapCore.framework */; };
+		2D84C7872427CF7C0083BD3B /* MapCoreTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2D84C7862427CF7C0083BD3B /* MapCoreTests.swift */; };
+		2D84C7892427CF7C0083BD3B /* MapCore.h in Headers */ = {isa = PBXBuildFile; fileRef = 2D84C7792427CF7C0083BD3B /* MapCore.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		2D84C78C2427CF7C0083BD3B /* MapCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2D84C7772427CF7C0083BD3B /* MapCore.framework */; };
+		2D84C7952427CF840083BD3B /* Document.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2D84C7462427C2930083BD3B /* Document.swift */; };
+		2D84C7962427D1460083BD3B /* MapCore.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 2D84C7772427CF7C0083BD3B /* MapCore.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		2D84C79E2427D4760083BD3B /* GEOSwift in Frameworks */ = {isa = PBXBuildFile; productRef = 2D84C79D2427D4760083BD3B /* GEOSwift */; };
+		2D84C7A12427D4910083BD3B /* GEOSwiftMapKit in Frameworks */ = {isa = PBXBuildFile; productRef = 2D84C7A02427D4910083BD3B /* GEOSwiftMapKit */; };
+		2D84C7AC2427D6530083BD3B /* geos in Frameworks */ = {isa = PBXBuildFile; productRef = 2D84C7AB2427D6530083BD3B /* geos */; };
+		2D84C7AD2427D6540083BD3B /* geos in Embed Frameworks */ = {isa = PBXBuildFile; productRef = 2D84C7AB2427D6530083BD3B /* geos */; settings = {ATTRIBUTES = (CodeSignOnCopy, ); }; };
+		2D84C7AF2427D7410083BD3B /* MapView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2D84C7AE2427D7400083BD3B /* MapView.swift */; };
+		2D84C7B22427D7ED0083BD3B /* SDWebImage in Frameworks */ = {isa = PBXBuildFile; productRef = 2D84C7B12427D7ED0083BD3B /* SDWebImage */; };
+		2D84C7B42427D7ED0083BD3B /* SDWebImageMapKit in Frameworks */ = {isa = PBXBuildFile; productRef = 2D84C7B32427D7ED0083BD3B /* SDWebImageMapKit */; };
+		2D84C7B92427D85D0083BD3B /* UIImage+Average.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2D84C7B62427D85D0083BD3B /* UIImage+Average.swift */; };
+		2D84C7BA2427D85D0083BD3B /* MKMapView+Fit.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2D84C7B72427D85D0083BD3B /* MKMapView+Fit.swift */; };
+		2D84C7BB2427D85D0083BD3B /* UIImage+Scale.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2D84C7B82427D85D0083BD3B /* UIImage+Scale.swift */; };
+		2D84C7BD2427E8930083BD3B /* MarkerAnnotationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2D84C7BC2427E8930083BD3B /* MarkerAnnotationView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -33,7 +49,53 @@
 			remoteGlobalIDString = 2D84C73C2427C2930083BD3B;
 			remoteInfo = Map;
 		};
+		2D84C7812427CF7C0083BD3B /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 2D84C7352427C2930083BD3B /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 2D84C7762427CF7C0083BD3B;
+			remoteInfo = MapCore;
+		};
+		2D84C7832427CF7C0083BD3B /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 2D84C7352427C2930083BD3B /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 2D84C73C2427C2930083BD3B;
+			remoteInfo = Map;
+		};
+		2D84C78A2427CF7C0083BD3B /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 2D84C7352427C2930083BD3B /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 2D84C7762427CF7C0083BD3B;
+			remoteInfo = MapCore;
+		};
 /* End PBXContainerItemProxy section */
+
+/* Begin PBXCopyFilesBuildPhase section */
+		2D84C78E2427CF7C0083BD3B /* Embed Frameworks */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 10;
+			files = (
+				2D84C7962427D1460083BD3B /* MapCore.framework in Embed Frameworks */,
+			);
+			name = "Embed Frameworks";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		2D84C79B2427D4250083BD3B /* Embed Frameworks */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 10;
+			files = (
+				2D84C7AD2427D6540083BD3B /* geos in Embed Frameworks */,
+			);
+			name = "Embed Frameworks";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
 		2D84C73D2427C2930083BD3B /* Map.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Map.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -51,6 +113,17 @@
 		2D84C7602427C2960083BD3B /* MapUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = MapUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		2D84C7642427C2960083BD3B /* MapUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapUITests.swift; sourceTree = "<group>"; };
 		2D84C7662427C2960083BD3B /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		2D84C7772427CF7C0083BD3B /* MapCore.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = MapCore.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		2D84C7792427CF7C0083BD3B /* MapCore.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MapCore.h; sourceTree = "<group>"; };
+		2D84C77A2427CF7C0083BD3B /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		2D84C77F2427CF7C0083BD3B /* MapCoreTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = MapCoreTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		2D84C7862427CF7C0083BD3B /* MapCoreTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapCoreTests.swift; sourceTree = "<group>"; };
+		2D84C7882427CF7C0083BD3B /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		2D84C7AE2427D7400083BD3B /* MapView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MapView.swift; sourceTree = "<group>"; };
+		2D84C7B62427D85D0083BD3B /* UIImage+Average.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIImage+Average.swift"; sourceTree = "<group>"; };
+		2D84C7B72427D85D0083BD3B /* MKMapView+Fit.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "MKMapView+Fit.swift"; sourceTree = "<group>"; };
+		2D84C7B82427D85D0083BD3B /* UIImage+Scale.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIImage+Scale.swift"; sourceTree = "<group>"; };
+		2D84C7BC2427E8930083BD3B /* MarkerAnnotationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MarkerAnnotationView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -58,6 +131,9 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				2D84C7B22427D7ED0083BD3B /* SDWebImage in Frameworks */,
+				2D84C7B42427D7ED0083BD3B /* SDWebImageMapKit in Frameworks */,
+				2D84C78C2427CF7C0083BD3B /* MapCore.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -75,6 +151,24 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		2D84C7742427CF7C0083BD3B /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				2D84C7A12427D4910083BD3B /* GEOSwiftMapKit in Frameworks */,
+				2D84C7AC2427D6530083BD3B /* geos in Frameworks */,
+				2D84C79E2427D4760083BD3B /* GEOSwift in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		2D84C77C2427CF7C0083BD3B /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				2D84C7802427CF7C0083BD3B /* MapCore.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
@@ -84,7 +178,10 @@
 				2D84C73F2427C2930083BD3B /* Map */,
 				2D84C7582427C2960083BD3B /* MapTests */,
 				2D84C7632427C2960083BD3B /* MapUITests */,
+				2D84C7782427CF7C0083BD3B /* MapCore */,
+				2D84C7852427CF7C0083BD3B /* MapCoreTests */,
 				2D84C73E2427C2930083BD3B /* Products */,
+				2D84C7A22427D6020083BD3B /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -94,6 +191,8 @@
 				2D84C73D2427C2930083BD3B /* Map.app */,
 				2D84C7552427C2960083BD3B /* MapTests.xctest */,
 				2D84C7602427C2960083BD3B /* MapUITests.xctest */,
+				2D84C7772427CF7C0083BD3B /* MapCore.framework */,
+				2D84C77F2427CF7C0083BD3B /* MapCoreTests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -101,10 +200,11 @@
 		2D84C73F2427C2930083BD3B /* Map */ = {
 			isa = PBXGroup;
 			children = (
+				2D84C7B52427D8490083BD3B /* UIKitExtensions */,
 				2D84C7402427C2930083BD3B /* AppDelegate.swift */,
 				2D84C7422427C2930083BD3B /* DocumentBrowserViewController.swift */,
 				2D84C7442427C2930083BD3B /* DocumentView.swift */,
-				2D84C7462427C2930083BD3B /* Document.swift */,
+				2D84C7AE2427D7400083BD3B /* MapView.swift */,
 				2D84C7482427C2930083BD3B /* Main.storyboard */,
 				2D84C74B2427C2960083BD3B /* Assets.xcassets */,
 				2D84C74D2427C2960083BD3B /* LaunchScreen.storyboard */,
@@ -131,7 +231,55 @@
 			path = MapUITests;
 			sourceTree = "<group>";
 		};
+		2D84C7782427CF7C0083BD3B /* MapCore */ = {
+			isa = PBXGroup;
+			children = (
+				2D84C7462427C2930083BD3B /* Document.swift */,
+				2D84C7792427CF7C0083BD3B /* MapCore.h */,
+				2D84C77A2427CF7C0083BD3B /* Info.plist */,
+			);
+			path = MapCore;
+			sourceTree = "<group>";
+		};
+		2D84C7852427CF7C0083BD3B /* MapCoreTests */ = {
+			isa = PBXGroup;
+			children = (
+				2D84C7862427CF7C0083BD3B /* MapCoreTests.swift */,
+				2D84C7882427CF7C0083BD3B /* Info.plist */,
+			);
+			path = MapCoreTests;
+			sourceTree = "<group>";
+		};
+		2D84C7A22427D6020083BD3B /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		2D84C7B52427D8490083BD3B /* UIKitExtensions */ = {
+			isa = PBXGroup;
+			children = (
+				2D84C7B62427D85D0083BD3B /* UIImage+Average.swift */,
+				2D84C7B72427D85D0083BD3B /* MKMapView+Fit.swift */,
+				2D84C7B82427D85D0083BD3B /* UIImage+Scale.swift */,
+				2D84C7BC2427E8930083BD3B /* MarkerAnnotationView.swift */,
+			);
+			path = UIKitExtensions;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
+
+/* Begin PBXHeadersBuildPhase section */
+		2D84C7722427CF7C0083BD3B /* Headers */ = {
+			isa = PBXHeadersBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				2D84C7892427CF7C0083BD3B /* MapCore.h in Headers */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXHeadersBuildPhase section */
 
 /* Begin PBXNativeTarget section */
 		2D84C73C2427C2930083BD3B /* Map */ = {
@@ -141,12 +289,18 @@
 				2D84C7392427C2930083BD3B /* Sources */,
 				2D84C73A2427C2930083BD3B /* Frameworks */,
 				2D84C73B2427C2930083BD3B /* Resources */,
+				2D84C78E2427CF7C0083BD3B /* Embed Frameworks */,
 			);
 			buildRules = (
 			);
 			dependencies = (
+				2D84C78B2427CF7C0083BD3B /* PBXTargetDependency */,
 			);
 			name = Map;
+			packageProductDependencies = (
+				2D84C7B12427D7ED0083BD3B /* SDWebImage */,
+				2D84C7B32427D7ED0083BD3B /* SDWebImageMapKit */,
+			);
 			productName = Map;
 			productReference = 2D84C73D2427C2930083BD3B /* Map.app */;
 			productType = "com.apple.product-type.application";
@@ -187,6 +341,49 @@
 			productReference = 2D84C7602427C2960083BD3B /* MapUITests.xctest */;
 			productType = "com.apple.product-type.bundle.ui-testing";
 		};
+		2D84C7762427CF7C0083BD3B /* MapCore */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 2D84C7932427CF7C0083BD3B /* Build configuration list for PBXNativeTarget "MapCore" */;
+			buildPhases = (
+				2D84C7722427CF7C0083BD3B /* Headers */,
+				2D84C7732427CF7C0083BD3B /* Sources */,
+				2D84C7742427CF7C0083BD3B /* Frameworks */,
+				2D84C7752427CF7C0083BD3B /* Resources */,
+				2D84C79B2427D4250083BD3B /* Embed Frameworks */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = MapCore;
+			packageProductDependencies = (
+				2D84C79D2427D4760083BD3B /* GEOSwift */,
+				2D84C7A02427D4910083BD3B /* GEOSwiftMapKit */,
+				2D84C7AB2427D6530083BD3B /* geos */,
+			);
+			productName = MapCore;
+			productReference = 2D84C7772427CF7C0083BD3B /* MapCore.framework */;
+			productType = "com.apple.product-type.framework";
+		};
+		2D84C77E2427CF7C0083BD3B /* MapCoreTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 2D84C7942427CF7C0083BD3B /* Build configuration list for PBXNativeTarget "MapCoreTests" */;
+			buildPhases = (
+				2D84C77B2427CF7C0083BD3B /* Sources */,
+				2D84C77C2427CF7C0083BD3B /* Frameworks */,
+				2D84C77D2427CF7C0083BD3B /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				2D84C7822427CF7C0083BD3B /* PBXTargetDependency */,
+				2D84C7842427CF7C0083BD3B /* PBXTargetDependency */,
+			);
+			name = MapCoreTests;
+			productName = MapCoreTests;
+			productReference = 2D84C77F2427CF7C0083BD3B /* MapCoreTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
@@ -208,6 +405,13 @@
 						CreatedOnToolsVersion = 11.3.1;
 						TestTargetID = 2D84C73C2427C2930083BD3B;
 					};
+					2D84C7762427CF7C0083BD3B = {
+						CreatedOnToolsVersion = 11.3.1;
+					};
+					2D84C77E2427CF7C0083BD3B = {
+						CreatedOnToolsVersion = 11.3.1;
+						TestTargetID = 2D84C73C2427C2930083BD3B;
+					};
 				};
 			};
 			buildConfigurationList = 2D84C7382427C2930083BD3B /* Build configuration list for PBXProject "Map" */;
@@ -219,6 +423,12 @@
 				Base,
 			);
 			mainGroup = 2D84C7342427C2930083BD3B;
+			packageReferences = (
+				2D84C79C2427D4760083BD3B /* XCRemoteSwiftPackageReference "GEOSwift" */,
+				2D84C79F2427D4910083BD3B /* XCRemoteSwiftPackageReference "GEOSwiftMapKit" */,
+				2D84C7A72427D64B0083BD3B /* XCRemoteSwiftPackageReference "geos" */,
+				2D84C7B02427D7ED0083BD3B /* XCRemoteSwiftPackageReference "SDWebImage" */,
+			);
 			productRefGroup = 2D84C73E2427C2930083BD3B /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
@@ -226,6 +436,8 @@
 				2D84C73C2427C2930083BD3B /* Map */,
 				2D84C7542427C2960083BD3B /* MapTests */,
 				2D84C75F2427C2960083BD3B /* MapUITests */,
+				2D84C7762427CF7C0083BD3B /* MapCore */,
+				2D84C77E2427CF7C0083BD3B /* MapCoreTests */,
 			);
 		};
 /* End PBXProject section */
@@ -255,6 +467,20 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		2D84C7752427CF7C0083BD3B /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		2D84C77D2427CF7C0083BD3B /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
@@ -262,9 +488,13 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				2D84C7472427C2930083BD3B /* Document.swift in Sources */,
 				2D84C7432427C2930083BD3B /* DocumentBrowserViewController.swift in Sources */,
+				2D84C7AF2427D7410083BD3B /* MapView.swift in Sources */,
 				2D84C7452427C2930083BD3B /* DocumentView.swift in Sources */,
+				2D84C7BA2427D85D0083BD3B /* MKMapView+Fit.swift in Sources */,
+				2D84C7BB2427D85D0083BD3B /* UIImage+Scale.swift in Sources */,
+				2D84C7BD2427E8930083BD3B /* MarkerAnnotationView.swift in Sources */,
+				2D84C7B92427D85D0083BD3B /* UIImage+Average.swift in Sources */,
 				2D84C7412427C2930083BD3B /* AppDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -285,6 +515,22 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		2D84C7732427CF7C0083BD3B /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				2D84C7952427CF840083BD3B /* Document.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		2D84C77B2427CF7C0083BD3B /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				2D84C7872427CF7C0083BD3B /* MapCoreTests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
@@ -297,6 +543,21 @@
 			isa = PBXTargetDependency;
 			target = 2D84C73C2427C2930083BD3B /* Map */;
 			targetProxy = 2D84C7612427C2960083BD3B /* PBXContainerItemProxy */;
+		};
+		2D84C7822427CF7C0083BD3B /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 2D84C7762427CF7C0083BD3B /* MapCore */;
+			targetProxy = 2D84C7812427CF7C0083BD3B /* PBXContainerItemProxy */;
+		};
+		2D84C7842427CF7C0083BD3B /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 2D84C73C2427C2930083BD3B /* Map */;
+			targetProxy = 2D84C7832427CF7C0083BD3B /* PBXContainerItemProxy */;
+		};
+		2D84C78B2427CF7C0083BD3B /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 2D84C7762427CF7C0083BD3B /* MapCore */;
+			targetProxy = 2D84C78A2427CF7C0083BD3B /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
 
@@ -437,6 +698,7 @@
 		2D84C76A2427C2960083BD3B /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = VF8BTMF3F4;
@@ -445,7 +707,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.carlosefonseca.Map;
+				PRODUCT_BUNDLE_IDENTIFIER = com.carlosefonseca.MapApp;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -455,6 +717,7 @@
 		2D84C76B2427C2960083BD3B /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = VF8BTMF3F4;
@@ -463,7 +726,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.carlosefonseca.Map;
+				PRODUCT_BUNDLE_IDENTIFIER = com.carlosefonseca.MapApp;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -554,6 +817,100 @@
 			};
 			name = Release;
 		};
+		2D84C78F2427CF7C0083BD3B /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEFINES_MODULE = YES;
+				DEVELOPMENT_TEAM = VF8BTMF3F4;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				INFOPLIST_FILE = MapCore/Info.plist;
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.carlosefonseca.MapCore;
+				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
+				SKIP_INSTALL = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VERSIONING_SYSTEM = "apple-generic";
+				VERSION_INFO_PREFIX = "";
+			};
+			name = Debug;
+		};
+		2D84C7902427CF7C0083BD3B /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEFINES_MODULE = YES;
+				DEVELOPMENT_TEAM = VF8BTMF3F4;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				INFOPLIST_FILE = MapCore/Info.plist;
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.carlosefonseca.MapCore;
+				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
+				SKIP_INSTALL = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VERSIONING_SYSTEM = "apple-generic";
+				VERSION_INFO_PREFIX = "";
+			};
+			name = Release;
+		};
+		2D84C7912427CF7C0083BD3B /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = VF8BTMF3F4;
+				INFOPLIST_FILE = MapCoreTests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.carlosefonseca.MapCoreTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Map.app/Map";
+			};
+			name = Debug;
+		};
+		2D84C7922427CF7C0083BD3B /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = VF8BTMF3F4;
+				INFOPLIST_FILE = MapCoreTests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.carlosefonseca.MapCoreTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Map.app/Map";
+			};
+			name = Release;
+		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
@@ -593,7 +950,88 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
+		2D84C7932427CF7C0083BD3B /* Build configuration list for PBXNativeTarget "MapCore" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				2D84C78F2427CF7C0083BD3B /* Debug */,
+				2D84C7902427CF7C0083BD3B /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		2D84C7942427CF7C0083BD3B /* Build configuration list for PBXNativeTarget "MapCoreTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				2D84C7912427CF7C0083BD3B /* Debug */,
+				2D84C7922427CF7C0083BD3B /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		2D84C79C2427D4760083BD3B /* XCRemoteSwiftPackageReference "GEOSwift" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/GEOSwift/GEOSwift.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 6.2.0;
+			};
+		};
+		2D84C79F2427D4910083BD3B /* XCRemoteSwiftPackageReference "GEOSwiftMapKit" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/GEOSwift/GEOSwiftMapKit.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 1.2.0;
+			};
+		};
+		2D84C7A72427D64B0083BD3B /* XCRemoteSwiftPackageReference "geos" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/GEOSwift/geos.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 4.1.0;
+			};
+		};
+		2D84C7B02427D7ED0083BD3B /* XCRemoteSwiftPackageReference "SDWebImage" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/SDWebImage/SDWebImage.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 5.6.1;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		2D84C79D2427D4760083BD3B /* GEOSwift */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 2D84C79C2427D4760083BD3B /* XCRemoteSwiftPackageReference "GEOSwift" */;
+			productName = GEOSwift;
+		};
+		2D84C7A02427D4910083BD3B /* GEOSwiftMapKit */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 2D84C79F2427D4910083BD3B /* XCRemoteSwiftPackageReference "GEOSwiftMapKit" */;
+			productName = GEOSwiftMapKit;
+		};
+		2D84C7AB2427D6530083BD3B /* geos */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 2D84C7A72427D64B0083BD3B /* XCRemoteSwiftPackageReference "geos" */;
+			productName = geos;
+		};
+		2D84C7B12427D7ED0083BD3B /* SDWebImage */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 2D84C7B02427D7ED0083BD3B /* XCRemoteSwiftPackageReference "SDWebImage" */;
+			productName = SDWebImage;
+		};
+		2D84C7B32427D7ED0083BD3B /* SDWebImageMapKit */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 2D84C7B02427D7ED0083BD3B /* XCRemoteSwiftPackageReference "SDWebImage" */;
+			productName = SDWebImageMapKit;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = 2D84C7352427C2930083BD3B /* Project object */;
 }
