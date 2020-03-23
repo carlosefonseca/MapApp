@@ -8,6 +8,9 @@
 
 /* Begin PBXBuildFile section */
 		2D252B512429785E006AA1CF /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2D252B502429785E006AA1CF /* SceneDelegate.swift */; };
+		2D252B5324298101006AA1CF /* MapsLikeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2D252B5224298101006AA1CF /* MapsLikeViewController.swift */; };
+		2D252B552429826C006AA1CF /* UIViewController+Children.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2D252B542429826C006AA1CF /* UIViewController+Children.swift */; };
+		2D252B572429827C006AA1CF /* UIView+Constraints.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2D252B562429827C006AA1CF /* UIView+Constraints.swift */; };
 		2D84C7412427C2930083BD3B /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2D84C7402427C2930083BD3B /* AppDelegate.swift */; };
 		2D84C7432427C2930083BD3B /* DocumentBrowserViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2D84C7422427C2930083BD3B /* DocumentBrowserViewController.swift */; };
 		2D84C7452427C2930083BD3B /* DocumentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2D84C7442427C2930083BD3B /* DocumentView.swift */; };
@@ -99,6 +102,9 @@
 
 /* Begin PBXFileReference section */
 		2D252B502429785E006AA1CF /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
+		2D252B5224298101006AA1CF /* MapsLikeViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MapsLikeViewController.swift; sourceTree = "<group>"; };
+		2D252B542429826C006AA1CF /* UIViewController+Children.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIViewController+Children.swift"; sourceTree = "<group>"; };
+		2D252B562429827C006AA1CF /* UIView+Constraints.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIView+Constraints.swift"; sourceTree = "<group>"; };
 		2D84C73D2427C2930083BD3B /* Map.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Map.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		2D84C7402427C2930083BD3B /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		2D84C7422427C2930083BD3B /* DocumentBrowserViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DocumentBrowserViewController.swift; sourceTree = "<group>"; };
@@ -201,6 +207,7 @@
 			isa = PBXGroup;
 			children = (
 				2D84C7402427C2930083BD3B /* AppDelegate.swift */,
+				2D252B5224298101006AA1CF /* MapsLikeViewController.swift */,
 				2D84C7422427C2930083BD3B /* DocumentBrowserViewController.swift */,
 				2D84C7442427C2930083BD3B /* DocumentView.swift */,
 				2D252B502429785E006AA1CF /* SceneDelegate.swift */,
@@ -260,6 +267,8 @@
 		2D84C7B52427D8490083BD3B /* UIKitExtensions */ = {
 			isa = PBXGroup;
 			children = (
+				2D252B562429827C006AA1CF /* UIView+Constraints.swift */,
+				2D252B542429826C006AA1CF /* UIViewController+Children.swift */,
 				2D84C7B62427D85D0083BD3B /* UIImage+Average.swift */,
 				2D84C7B72427D85D0083BD3B /* MKMapView+Fit.swift */,
 				2D84C7B82427D85D0083BD3B /* UIImage+Scale.swift */,
@@ -487,8 +496,11 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				2D252B552429826C006AA1CF /* UIViewController+Children.swift in Sources */,
 				2D84C7432427C2930083BD3B /* DocumentBrowserViewController.swift in Sources */,
 				2D84C7AF2427D7410083BD3B /* MapView.swift in Sources */,
+				2D252B572429827C006AA1CF /* UIView+Constraints.swift in Sources */,
+				2D252B5324298101006AA1CF /* MapsLikeViewController.swift in Sources */,
 				2D252B512429785E006AA1CF /* SceneDelegate.swift in Sources */,
 				2D84C7452427C2930083BD3B /* DocumentView.swift in Sources */,
 				2D84C7BA2427D85D0083BD3B /* MKMapView+Fit.swift in Sources */,

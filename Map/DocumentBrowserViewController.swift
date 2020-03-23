@@ -69,24 +69,19 @@ class DocumentBrowserViewController: UIDocumentBrowserViewController, UIDocument
         // Access the document
         document.open(completionHandler: { success in
             if success {
-                // Display the content of the document:
-                let view = DocumentView(document: document, dismiss: {
-                    self.closeDocument(document)
-                    }).environmentObject(document)
-
-                let documentViewController = UIHostingController(rootView: view)
-                documentViewController.modalPresentationStyle = .fullScreen
-                self.present(documentViewController, animated: true, completion: nil)
+                let vc = MapsLikeViewController(document: document)
+                vc.modalPresentationStyle = .fullScreen
+                self.present(vc, animated: true, completion: nil)
             } else {
                 // Make sure to handle the failed import appropriately, e.g., by presenting an error message to the user.
             }
         })
     }
 
-    func closeDocument(_ document: Document) {
-        dismiss(animated: true) {
-            document.close(completionHandler: nil)
-        }
-    }
+//    func closeDocument(_ document: Document) {
+//        dismiss(animated: true) {
+//            document.close(completionHandler: nil)
+//        }
+//    }
 }
 
