@@ -75,6 +75,7 @@ class DocumentBrowserViewController: UIDocumentBrowserViewController, UIDocument
                     }).environmentObject(document)
 
                 let documentViewController = UIHostingController(rootView: view)
+                documentViewController.modalPresentationStyle = .fullScreen
                 self.present(documentViewController, animated: true, completion: nil)
             } else {
                 // Make sure to handle the failed import appropriately, e.g., by presenting an error message to the user.

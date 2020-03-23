@@ -1,0 +1,43 @@
+{
+  "object": {
+    "pins": [
+      {
+        "package": "geos",
+        "repositoryURL": "https://github.com/GEOSwift/geos.git",
+        "state": {
+          "branch": null,
+          "revision": "4285f0903eacafd98705f047519c16e9dd09aba2",
+          "version": "4.1.0"
+        }
+      },
+      {
+        "package": "GEOSwift",
+        "repositoryURL": "https://github.com/GEOSwift/GEOSwift.git",
+        "state": {
+          "branch": null,
+          "revision": "bee795f789a96dc9f5e70b2b625305eb92275f31",
+          "version": "6.2.0"
+        }
+      },
+      {
+        "package": "GEOSwiftMapKit",
+        "repositoryURL": "https://github.com/GEOSwift/GEOSwiftMapKit.git",
+        "state": {
+          "branch": null,
+          "revision": "3c293964c8d4128e630060e50d2c37f0d151301c",
+          "version": "1.2.0"
+        }
+      },
+      {
+        "package": "SDWebImage",
+        "repositoryURL": "https://github.com/SDWebImage/SDWebImage.git",
+        "state": {
+          "branch": null,
+          "revision": "2dcf1b65994d92ef8806f52dc41aa6fdd677489c",
+          "version": "5.6.1"
+        }
+      }
+    ]
+  },
+  "version": 1
+}
