@@ -11,6 +11,10 @@
 		2D252B5324298101006AA1CF /* MapsLikeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2D252B5224298101006AA1CF /* MapsLikeViewController.swift */; };
 		2D252B552429826C006AA1CF /* UIViewController+Children.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2D252B542429826C006AA1CF /* UIViewController+Children.swift */; };
 		2D252B572429827C006AA1CF /* UIView+Constraints.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2D252B562429827C006AA1CF /* UIView+Constraints.swift */; };
+		2D252B5A2429853C006AA1CF /* OverlayContainer in Frameworks */ = {isa = PBXBuildFile; productRef = 2D252B592429853C006AA1CF /* OverlayContainer */; };
+		2D252B5C24298937006AA1CF /* SearchViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2D252B5B24298937006AA1CF /* SearchViewController.swift */; };
+		2D252B5F2429894E006AA1CF /* DetailHeaderView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2D252B5D2429894E006AA1CF /* DetailHeaderView.xib */; };
+		2D252B602429894E006AA1CF /* DetailHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2D252B5E2429894E006AA1CF /* DetailHeaderView.swift */; };
 		2D84C7412427C2930083BD3B /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2D84C7402427C2930083BD3B /* AppDelegate.swift */; };
 		2D84C7432427C2930083BD3B /* DocumentBrowserViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2D84C7422427C2930083BD3B /* DocumentBrowserViewController.swift */; };
 		2D84C7452427C2930083BD3B /* DocumentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2D84C7442427C2930083BD3B /* DocumentView.swift */; };
@@ -105,6 +109,9 @@
 		2D252B5224298101006AA1CF /* MapsLikeViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MapsLikeViewController.swift; sourceTree = "<group>"; };
 		2D252B542429826C006AA1CF /* UIViewController+Children.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIViewController+Children.swift"; sourceTree = "<group>"; };
 		2D252B562429827C006AA1CF /* UIView+Constraints.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIView+Constraints.swift"; sourceTree = "<group>"; };
+		2D252B5B24298937006AA1CF /* SearchViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SearchViewController.swift; sourceTree = "<group>"; };
+		2D252B5D2429894E006AA1CF /* DetailHeaderView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = DetailHeaderView.xib; sourceTree = "<group>"; };
+		2D252B5E2429894E006AA1CF /* DetailHeaderView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DetailHeaderView.swift; sourceTree = "<group>"; };
 		2D84C73D2427C2930083BD3B /* Map.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Map.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		2D84C7402427C2930083BD3B /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		2D84C7422427C2930083BD3B /* DocumentBrowserViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DocumentBrowserViewController.swift; sourceTree = "<group>"; };
@@ -138,6 +145,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				2D84C7B22427D7ED0083BD3B /* SDWebImage in Frameworks */,
+				2D252B5A2429853C006AA1CF /* OverlayContainer in Frameworks */,
 				2D84C7B42427D7ED0083BD3B /* SDWebImageMapKit in Frameworks */,
 				2D84C78C2427CF7C0083BD3B /* MapCore.framework in Frameworks */,
 			);
@@ -215,6 +223,9 @@
 				2D84C74B2427C2960083BD3B /* Assets.xcassets */,
 				2D84C74D2427C2960083BD3B /* LaunchScreen.storyboard */,
 				2D84C7502427C2960083BD3B /* Info.plist */,
+				2D252B5B24298937006AA1CF /* SearchViewController.swift */,
+				2D252B5E2429894E006AA1CF /* DetailHeaderView.swift */,
+				2D252B5D2429894E006AA1CF /* DetailHeaderView.xib */,
 				2D84C7B52427D8490083BD3B /* UIKitExtensions */,
 			);
 			path = Map;
@@ -309,6 +320,7 @@
 			packageProductDependencies = (
 				2D84C7B12427D7ED0083BD3B /* SDWebImage */,
 				2D84C7B32427D7ED0083BD3B /* SDWebImageMapKit */,
+				2D252B592429853C006AA1CF /* OverlayContainer */,
 			);
 			productName = Map;
 			productReference = 2D84C73D2427C2930083BD3B /* Map.app */;
@@ -437,6 +449,7 @@
 				2D84C79F2427D4910083BD3B /* XCRemoteSwiftPackageReference "GEOSwiftMapKit" */,
 				2D84C7A72427D64B0083BD3B /* XCRemoteSwiftPackageReference "geos" */,
 				2D84C7B02427D7ED0083BD3B /* XCRemoteSwiftPackageReference "SDWebImage" */,
+				2D252B582429853C006AA1CF /* XCRemoteSwiftPackageReference "OverlayContainer" */,
 			);
 			productRefGroup = 2D84C73E2427C2930083BD3B /* Products */;
 			projectDirPath = "";
@@ -456,6 +469,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				2D252B5F2429894E006AA1CF /* DetailHeaderView.xib in Resources */,
 				2D84C74F2427C2960083BD3B /* LaunchScreen.storyboard in Resources */,
 				2D84C74C2427C2960083BD3B /* Assets.xcassets in Resources */,
 			);
@@ -504,9 +518,11 @@
 				2D252B512429785E006AA1CF /* SceneDelegate.swift in Sources */,
 				2D84C7452427C2930083BD3B /* DocumentView.swift in Sources */,
 				2D84C7BA2427D85D0083BD3B /* MKMapView+Fit.swift in Sources */,
+				2D252B5C24298937006AA1CF /* SearchViewController.swift in Sources */,
 				2D84C7BB2427D85D0083BD3B /* UIImage+Scale.swift in Sources */,
 				2D84C7BD2427E8930083BD3B /* MarkerAnnotationView.swift in Sources */,
 				2D84C7B92427D85D0083BD3B /* UIImage+Average.swift in Sources */,
+				2D252B602429894E006AA1CF /* DetailHeaderView.swift in Sources */,
 				2D84C7412427C2930083BD3B /* AppDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -975,6 +991,14 @@
 /* End XCConfigurationList section */
 
 /* Begin XCRemoteSwiftPackageReference section */
+		2D252B582429853C006AA1CF /* XCRemoteSwiftPackageReference "OverlayContainer" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/applidium/OverlayContainer.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 3.3.1;
+			};
+		};
 		2D84C79C2427D4760083BD3B /* XCRemoteSwiftPackageReference "GEOSwift" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/GEOSwift/GEOSwift.git";
@@ -1010,6 +1034,11 @@
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
+		2D252B592429853C006AA1CF /* OverlayContainer */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 2D252B582429853C006AA1CF /* XCRemoteSwiftPackageReference "OverlayContainer" */;
+			productName = OverlayContainer;
+		};
 		2D84C79D2427D4760083BD3B /* GEOSwift */ = {
 			isa = XCSwiftPackageProductDependency;
 			package = 2D84C79C2427D4760083BD3B /* XCRemoteSwiftPackageReference "GEOSwift" */;

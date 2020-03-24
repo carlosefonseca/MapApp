@@ -15,6 +15,27 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate/*, OverlayContainerViewC
 
     func scene(_ scene: UIScene, openURLContexts URLContexts: Set<UIOpenURLContext>) {
         print("scene openURLContexts \(URLContexts)")
+        
+        let inputURL = URLContexts.first!.url
+        
+        // Ensure the URL is a file URL
+        guard inputURL.isFileURL else { return }
+                
+        // Reveal / import the document at the URL
+        guard let documentBrowserViewController = window?.rootViewController as? DocumentBrowserViewController else { return }
+
+        documentBrowserViewController.revealDocument(at: inputURL, importIfNeeded: true) { (revealedDocumentURL, error) in
+            if let error = error {
+                // Handle the error appropriately
+                print("Failed to reveal the document at URL \(inputURL) with error: '\(error)'")
+                return
+            }
+            
+            // Present the Document View Controller for the revealed URL
+            documentBrowserViewController.presentDocument(at: revealedDocumentURL!)
+        }
+
+        return
     }
 
     func scene(_ scene: UIScene, willConnectTo session: UISceneSession, options connectionOptions: UIScene.ConnectionOptions) {

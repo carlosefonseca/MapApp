@@ -17,6 +17,14 @@ extension UIViewController {
         child.didMove(toParent: self)
     }
 
+    func addChild(_ child: UIViewController, in containerView: UIView, at index: Int) {
+        guard containerView.isDescendant(of: view) else { return }
+        addChild(child)
+        containerView.insertSubview(child.view, at: index)
+        child.view.pinToSuperview()
+        child.didMove(toParent: self)
+    }
+
     func removeChild(_ child: UIViewController) {
         child.willMove(toParent: nil)
         child.view.removeFromSuperview()
