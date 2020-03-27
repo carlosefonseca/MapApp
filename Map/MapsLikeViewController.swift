@@ -11,7 +11,7 @@ import SwiftUI
 import MapCore
 import OverlayContainer
 
-class MapsLikeViewController: UIViewController {
+class MapsLikeViewController: UIViewController, SearchViewControllerDelegate {
 
     let document: Document
 
@@ -56,23 +56,43 @@ class MapsLikeViewController: UIViewController {
 
     // MARK: - UIViewController
 
+//    @Published var selection : An
+
     override func viewDidLoad() {
         super.viewDidLoad()
 
+        let searchVC = SearchViewController(showsCloseAction: false)
+
         // Display the content of the document:
-        let view = DocumentView(document: document, dismiss: {
-            self.dismiss(animated: true) {
-                self.document.close(completionHandler: nil)
-            }
-        }).environmentObject(document)
+        let view = DocumentView(document: document,
+            dismiss: {
+                self.dismiss(animated: true) {
+                    self.document.close(completionHandler: nil)
+                }
+            },
+            onSelect: { f in searchVC.selectFeature(feature: f) }
+        ).environmentObject(document)//.environmentObject(selection)
 
         let documentViewController = UIHostingController(rootView: view)
 
+        searchVC.document = document
+//        searchVC.mapView = view
+
+        searchVC.delegate = self
+
         let overlayController = OverlayContainerViewController()
         overlayController.delegate = self
-        overlayController.viewControllers = [SearchViewController(showsCloseAction: false)]
+        overlayController.viewControllers = [searchVC]
         addChild(overlayController, in: overlayContainerView)
         addChild(documentViewController, in: self.view, at: 0)
+    }
+
+    func searchViewControllerDidSelectARow(_ feature: AppFeature) {
+        document.select(point: feature)
+    }
+    
+    func searchViewControllerDidSelectCloseAction(_ searchViewController: SearchViewController) {
+
     }
 
     override func viewWillLayoutSubviews() {
@@ -95,6 +115,9 @@ class MapsLikeViewController: UIViewController {
     private func notchHeight(for notch: OverlayNotch, availableSpace: CGFloat) -> CGFloat {
         switch notch {
         case .maximum:
+            if view.bounds.size.width > view.bounds.size.height {
+                return availableSpace - 20
+            }
             return availableSpace * 3 / 4
         case .minimum:
             return availableSpace * 1 / 4

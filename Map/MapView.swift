@@ -15,6 +15,7 @@ import MapCore
 struct MapView: UIViewRepresentable {
 
     @EnvironmentObject var state: Document
+    var onSelect: (AppFeature) -> Void
 
     var locationManager = CLLocationManager()
 
@@ -33,6 +34,12 @@ struct MapView: UIViewRepresentable {
     func updateUIView(_ uiView: MKMapView, context: Context) {
         uiView.addAnnotations(state.pointAnnotations)
         uiView.setVisibleMapRectToFitAllAnnotations(edgePadding: UIEdgeInsets(top: 50, left: 50, bottom: 35, right: 50))
+        if let x = state.selectedAnnotation {
+            uiView.selectAnnotation(x, animated: true)
+//            uiView.setCenter(x.coordinate, animated: true)
+//            uiView.cameraZoomRange = MKMapView.CameraZoomRange(maxCenterCoordinateDistance: 100)
+            uiView.setCamera(MKMapCamera(lookingAtCenter: x.coordinate, fromDistance: 100, pitch: 0, heading: 0), animated: true)
+        }
     }
 
     func makeCoordinator() -> Coordinator {
@@ -64,7 +71,7 @@ struct MapView: UIViewRepresentable {
                 SDWebImageManager.shared.loadImage(with: url, options: .highPriority, progress: nil) { (image: UIImage?, _, error, _, _, _) in
                     let img = image!.resize(withSize: CGSize(width: 50, height: 50), contentMode: .contentAspectFill)!
                     let img2 = self.makeFrame(forImage: img, label: nil)
-                    
+
                     annotationView?.set(image: img2.0)
                 }
 
@@ -88,9 +95,11 @@ struct MapView: UIViewRepresentable {
 
         }
 
-//        func mapView(_ mapView: MKMapView, didSelect view: MKAnnotationView) {
-//            let ann = view.annotation as! AppAnnotation
-//
+        func mapView(_ mapView: MKMapView, didSelect view: MKAnnotationView) {
+            let ann = view.annotation as! AppAnnotation
+
+            parent.onSelect(ann.point!)
+
 //            if let url = ann.imageUrl {
 //                SDWebImageManager.shared.loadImage(with: url, options: .highPriority, progress: nil) { (image: UIImage?, _, error, _, _, _) in
 //                    let img = image!.resize(withSize: CGSize(width: 50, height: 50), contentMode: .contentAspectFill)!
@@ -98,7 +107,7 @@ struct MapView: UIViewRepresentable {
 ////                    view.image = img2.0
 //                }
 //            }
-//        }
+        }
 //
 //        func mapView(_ mapView: MKMapView, didDeselect view: MKAnnotationView) {
 //            let ann = view.annotation as! AppAnnotation
@@ -111,8 +120,8 @@ struct MapView: UIViewRepresentable {
 //                }
 //            }
 //        }
-        
-        
+
+
 
         func makeFrame(forImage image: UIImage, withShadow shadow: Bool = false, label: String? = nil) -> (UIImage, CGPoint) {
             let imageSize: CGSize = image.size
@@ -232,7 +241,7 @@ struct MapView: UIViewRepresentable {
 
 struct MapViewStuff: View {
     var body: some View {
-        MapView()
+        MapView(onSelect: { _ in })
     }
 }
 

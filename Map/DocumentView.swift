@@ -13,9 +13,10 @@ import MapCore
 struct DocumentView: View {
     var document: Document
     var dismiss: () -> Void
+    var onSelect: (AppFeature) -> Void
 
-    
-    
+
+
     var body: some View {
         VStack {
             HStack {
@@ -24,8 +25,7 @@ struct DocumentView: View {
                 Text(document.fileURL.lastPathComponent)
                 Button("Done", action: dismiss)
             }
-            MapView()//.environmentObject(document)
-            .edgesIgnoringSafeArea(.all)
+            MapView(onSelect: onSelect).edgesIgnoringSafeArea(.all)
 
         }
     }

@@ -15,6 +15,8 @@ public class Document: UIDocument, ObservableObject {
     @Published public var points: [AppFeature] = []
     @Published public var pointAnnotations: [MKAnnotation] = []
     @Published public var isDownloadingImages = false
+    @Published public var selectedPoint: AppFeature? = nil
+    @Published public var selectedAnnotation: MKAnnotation? = nil
 
     override public func contents(forType typeName: String) throws -> Any {
         // Encode your document with an instance of NSData or NSFileWrapper
@@ -30,6 +32,16 @@ public class Document: UIDocument, ObservableObject {
         }
 
     }
+
+    public func select(point: AppFeature) {
+        self.selectedPoint = point
+        let idx = self.points.firstIndex(where: { $0 == point })!
+        self.selectedAnnotation = self.pointAnnotations[idx]
+    }
+
+    func select(annotation: AppAnnotation) {
+
+    }
 }
 
 class Parser {
@@ -39,6 +51,7 @@ class Parser {
         annotation.subtitle = f.subtitle
         annotation.imageUrl = f.imageUrl
         annotation.imageSymbol = f.imageSymbol
+        annotation.point = f
         return annotation
     }
 
@@ -88,10 +101,12 @@ public struct AppFeature {
     }
 
     var imageSymbol: String? { getStringProperty(named: "image_symbol") }
-
 }
+
+extension AppFeature: Equatable { }
 
 public class AppAnnotation: MKPointAnnotation {
     public var imageUrl: URL?
     public var imageSymbol: String?
+    public var point: AppFeature?
 }

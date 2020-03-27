@@ -7,22 +7,27 @@
 //
 
 import UIKit
+import MapCore
+import SDWebImage
 
 protocol SearchViewControllerDelegate: AnyObject {
-    func searchViewControllerDidSelectARow(_ searchViewController: SearchViewController)
+    func searchViewControllerDidSelectARow(_ feature: AppFeature)
     func searchViewControllerDidSelectCloseAction(_ searchViewController: SearchViewController)
 }
 
-class SearchViewController: UIViewController,
-    UITableViewDataSource,
-    UITableViewDelegate,
-    DetailHeaderViewDelegate {
+class SearchViewController: UIViewController, UITableViewDataSource, UITableViewDelegate, DetailHeaderViewDelegate {
 
     weak var delegate: SearchViewControllerDelegate?
+
+    public var document: Document? = nil
 
     private let showsCloseAction: Bool
     private(set) lazy var header = Bundle.main.loadNibNamed("DetailHeaderView", owner: self, options: nil)![0] as! DetailHeaderView
     private(set) lazy var tableView = UITableView()
+
+    var tableData: [AppFeature] = []
+
+//    let sink: AnyCancellable?
 
     // MARK: - Life Cycle
 
@@ -36,6 +41,20 @@ class SearchViewController: UIViewController,
         fatalError("init(coder:) has not been implemented")
     }
 
+    override func viewDidLoad() {
+        let sink = document?.$points.sink { points in
+            print(points)
+            self.tableData = points
+            self.tableView.reloadData()
+        }
+    }
+
+    public func selectFeature(feature: AppFeature) {
+        if let idx = tableData.lastIndex(where: { $0 == feature }) {
+            tableView.selectRow(at: IndexPath(row: idx, section: 0), animated: true, scrollPosition: .middle)
+        }
+    }
+
     // MARK: - UIViewController
 
     override func loadView() {
@@ -47,19 +66,22 @@ class SearchViewController: UIViewController,
     // MARK: - UITableViewDataSource
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "cell") ?? UITableViewCell(style: .default, reuseIdentifier: "cell")
-        cell.textLabel?.text = "Row \(indexPath.row)"
+        let cell = tableView.dequeueReusableCell(withIdentifier: "cell") ?? UITableViewCell(style: .subtitle, reuseIdentifier: "cell")
+        let item = self.tableData[indexPath.row]
+        cell.textLabel?.text = item.title
+        cell.detailTextLabel?.text = item.subtitle
+        cell.imageView?.sd_setImage(with: item.imageUrl)
         cell.textLabel?.font = UIFont.systemFont(ofSize: 17, weight: .semibold)
         return cell
     }
 
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 100
+        return self.tableData.count
     }
 
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        tableView.deselectRow(at: indexPath, animated: true)
-        delegate?.searchViewControllerDidSelectARow(self)
+//        tableView.deselectRow(at: indexPath, animated: true)
+        delegate?.searchViewControllerDidSelectARow(self.tableData[indexPath.row])
     }
 
     // MARK: - DetailHeaderViewDelegate
