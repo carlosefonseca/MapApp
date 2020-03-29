@@ -41,7 +41,7 @@ class MapsLikeViewController: UIViewController, SearchViewControllerDelegate {
     private var trailingConstraint: NSLayoutConstraint!
 
     lazy var overlayContainerView: UIView = {
-        let v = UIView()
+        let v = PassThroughView()
         self.view.addSubview(v)
         v.translatesAutoresizingMaskIntoConstraints = false
 
