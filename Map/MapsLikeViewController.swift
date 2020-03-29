@@ -6,14 +6,19 @@
 //  Copyright © 2018 CocoaPods. All rights reserved.
 //
 
-import UIKit
-import SwiftUI
 import MapCore
 import OverlayContainer
+import SwiftUI
+import UIKit
+
+class ViewState: ObservableObject {
+    @Published var leftPad = 0
+}
 
 class MapsLikeViewController: UIViewController, SearchViewControllerDelegate {
-
     let document: Document
+
+    var viewState = ViewState()
 
     init(document: Document) {
         self.document = document
@@ -28,11 +33,12 @@ class MapsLikeViewController: UIViewController, SearchViewControllerDelegate {
         case minimum, maximum
     }
 
+    var overlayController: OverlayContainerViewController!
+
     @IBOutlet var backgroundView: UIView!
 
     private var widthConstraint: NSLayoutConstraint!
     private var trailingConstraint: NSLayoutConstraint!
-
 
     lazy var overlayContainerView: UIView = {
         let v = UIView()
@@ -64,14 +70,16 @@ class MapsLikeViewController: UIViewController, SearchViewControllerDelegate {
         let searchVC = SearchViewController(showsCloseAction: false)
 
         // Display the content of the document:
-        let view = DocumentView(document: document,
+        let view = DocumentView(
+            document: document,
             dismiss: {
                 self.dismiss(animated: true) {
                     self.document.close(completionHandler: nil)
                 }
             },
             onSelect: { f in searchVC.selectFeature(feature: f) }
-        ).environmentObject(document)//.environmentObject(selection)
+        ).environmentObject(document)
+            .environmentObject(viewState)
 
         let documentViewController = UIHostingController(rootView: view)
 
@@ -80,7 +88,7 @@ class MapsLikeViewController: UIViewController, SearchViewControllerDelegate {
 
         searchVC.delegate = self
 
-        let overlayController = OverlayContainerViewController()
+        overlayController = OverlayContainerViewController()
         overlayController.delegate = self
         overlayController.viewControllers = [searchVC]
         addChild(overlayController, in: overlayContainerView)
@@ -90,10 +98,8 @@ class MapsLikeViewController: UIViewController, SearchViewControllerDelegate {
     func searchViewControllerDidSelectARow(_ feature: AppFeature) {
         document.select(point: feature)
     }
-    
-    func searchViewControllerDidSelectCloseAction(_ searchViewController: SearchViewController) {
 
-    }
+    func searchViewControllerDidSelectCloseAction(_ searchViewController: SearchViewController) {}
 
     override func viewWillLayoutSubviews() {
         setUpConstraints(for: view.bounds.size)
@@ -106,17 +112,26 @@ class MapsLikeViewController: UIViewController, SearchViewControllerDelegate {
         if size.width > size.height {
             trailingConstraint.isActive = false
             widthConstraint.isActive = true
+            viewState.leftPad = 375
+//            notches = [OverlayNotch.maximum]
+//            overlayContainerController.moveOverlay
+            overlayController.moveOverlay(toNotchAt: notches.firstIndex(of: .maximum)!, animated: false)
         } else {
             trailingConstraint.isActive = true
             widthConstraint.isActive = false
+            viewState.leftPad = 0
+//            notches = OverlayNotch.allCases
         }
+//        overlayController.invalidateNotchHeights()
     }
+
+    var notches = OverlayNotch.allCases
 
     private func notchHeight(for notch: OverlayNotch, availableSpace: CGFloat) -> CGFloat {
         switch notch {
         case .maximum:
             if view.bounds.size.width > view.bounds.size.height {
-                return availableSpace - 20
+                return availableSpace - 64
             }
             return availableSpace * 3 / 4
         case .minimum:
@@ -126,29 +141,28 @@ class MapsLikeViewController: UIViewController, SearchViewControllerDelegate {
 }
 
 extension MapsLikeViewController: OverlayContainerViewControllerDelegate {
-
     // MARK: - OverlayContainerViewControllerDelegate
 
     func numberOfNotches(in containerViewController: OverlayContainerViewController) -> Int {
-        return OverlayNotch.allCases.count
+        return notches.count
     }
 
     func overlayContainerViewController(_ containerViewController: OverlayContainerViewController,
-        heightForNotchAt index: Int,
-        availableSpace: CGFloat) -> CGFloat {
-        let notch = OverlayNotch.allCases[index]
+                                        heightForNotchAt index: Int,
+                                        availableSpace: CGFloat) -> CGFloat {
+        let notch = notches[index]
         return notchHeight(for: notch, availableSpace: availableSpace)
     }
 
     func overlayContainerViewController(_ containerViewController: OverlayContainerViewController,
-        scrollViewDrivingOverlay overlayViewController: UIViewController) -> UIScrollView? {
+                                        scrollViewDrivingOverlay overlayViewController: UIViewController) -> UIScrollView? {
         return (overlayViewController as? SearchViewController)?.tableView
     }
 
     func overlayContainerViewController(_ containerViewController: OverlayContainerViewController,
-        shouldStartDraggingOverlay overlayViewController: UIViewController,
-        at point: CGPoint,
-        in coordinateSpace: UICoordinateSpace) -> Bool {
+                                        shouldStartDraggingOverlay overlayViewController: UIViewController,
+                                        at point: CGPoint,
+                                        in coordinateSpace: UICoordinateSpace) -> Bool {
         guard let header = (overlayViewController as? SearchViewController)?.header else {
             return false
         }

@@ -6,16 +6,34 @@
 //  Copyright © 2019 iOS App Templates. All rights reserved.
 //
 
-import SwiftUI
+import MapCore
 import MapKit
 import SDWebImage
 import SDWebImageMapKit
-import MapCore
+import SwiftUI
 
 struct MapView: UIViewRepresentable {
+    enum Camera {
+        case all
+        case single(annotation: MKAnnotation)
+        case multiple(annotations: [MKAnnotation])
+        case free // (center: CLLocationCoordinate2D, altitude: CLLocationDistance)
+    }
 
-    @EnvironmentObject var state: Document
+    @Binding var camera: Camera
+
     var onSelect: (AppFeature) -> Void
+    @EnvironmentObject var state: Document
+
+    @EnvironmentObject var viewState: ViewState
+
+//    @EnvironmentObject var leftPad: Int
+
+    let mapEdgePadding: UIEdgeInsets = UIEdgeInsets(top: 100, left: 50, bottom: 50, right: 50)
+
+    func makePadding() -> UIEdgeInsets {
+        return UIEdgeInsets(top: mapEdgePadding.top, left: mapEdgePadding.left + CGFloat(viewState.leftPad), bottom: mapEdgePadding.bottom, right: mapEdgePadding.right)
+    }
 
     var locationManager = CLLocationManager()
 
@@ -32,13 +50,20 @@ struct MapView: UIViewRepresentable {
     }
 
     func updateUIView(_ uiView: MKMapView, context: Context) {
-        uiView.addAnnotations(state.pointAnnotations)
-        uiView.setVisibleMapRectToFitAllAnnotations(edgePadding: UIEdgeInsets(top: 50, left: 50, bottom: 35, right: 50))
-        if let x = state.selectedAnnotation {
-            uiView.selectAnnotation(x, animated: true)
-//            uiView.setCenter(x.coordinate, animated: true)
-//            uiView.cameraZoomRange = MKMapView.CameraZoomRange(maxCenterCoordinateDistance: 100)
-            uiView.setCamera(MKMapCamera(lookingAtCenter: x.coordinate, fromDistance: 100, pitch: 0, heading: 0), animated: true)
+        if uiView.annotations.isEmpty {
+            uiView.addAnnotations(state.pointAnnotations)
+        }
+        switch camera {
+        case .all:
+            uiView.setVisibleMapRectToFitAllAnnotations(edgePadding: makePadding())
+        case .single(let annotation):
+            uiView.selectAnnotation(annotation, animated: true)
+            uiView.setCamera(MKMapCamera(lookingAtCenter: annotation.coordinate, fromDistance: 100, pitch: 0, heading: 0), animated: true)
+        case .multiple(let annotations):
+            uiView.selectedAnnotations = annotations
+            uiView.setVisibleMapRectToFitAnnotations(annotations, edgePadding: makePadding())
+        default:
+            break
         }
     }
 
@@ -61,14 +86,13 @@ struct MapView: UIViewRepresentable {
                 return nil
             }
 
-
             if let url = ann.imageUrl {
                 var annotationView: MarkerAnnotationView?
 
                 annotationView = mapView.dequeueReusableAnnotationView(withIdentifier: annotationViewReuseIdentifierImageUrl) as? MarkerAnnotationView
                     ?? MarkerAnnotationView(annotation: annotation, reuseIdentifier: annotationViewReuseIdentifierImageUrl)
 
-                SDWebImageManager.shared.loadImage(with: url, options: .highPriority, progress: nil) { (image: UIImage?, _, error, _, _, _) in
+                SDWebImageManager.shared.loadImage(with: url, options: .highPriority, progress: nil) { (image: UIImage?, _, _, _, _, _) in
                     let img = image!.resize(withSize: CGSize(width: 50, height: 50), contentMode: .contentAspectFill)!
                     let img2 = self.makeFrame(forImage: img, label: nil)
 
@@ -92,36 +116,31 @@ struct MapView: UIViewRepresentable {
 
                 return marker
             }
+        }
 
+        func mapViewRegionDidChangeFromUserInteraction(mapView: MKMapView) -> Bool {
+            if let gestureRecognizers = mapView.subviews.first?.gestureRecognizers {
+                return gestureRecognizers.contains { (gr) -> Bool in
+                    /* gr.state == .began || */ gr.state == .ended || gr.state == .changed
+                }
+            }
+            return false
+        }
+
+        func mapViewDidChangeVisibleRegion(_ mapView: MKMapView) {
+            if case .free = parent.camera {} else {
+                if mapViewRegionDidChangeFromUserInteraction(mapView: mapView) {
+//                let center = mapView.camera.centerCoordinate
+//                let altitude = mapView.camera.altitude
+                    parent.camera = .free
+                }
+            }
         }
 
         func mapView(_ mapView: MKMapView, didSelect view: MKAnnotationView) {
             let ann = view.annotation as! AppAnnotation
-
             parent.onSelect(ann.point!)
-
-//            if let url = ann.imageUrl {
-//                SDWebImageManager.shared.loadImage(with: url, options: .highPriority, progress: nil) { (image: UIImage?, _, error, _, _, _) in
-//                    let img = image!.resize(withSize: CGSize(width: 50, height: 50), contentMode: .contentAspectFill)!
-//                    let img2 = self.makeFrame(forImage: img, withShadow: true, label: nil)
-////                    view.image = img2.0
-//                }
-//            }
         }
-//
-//        func mapView(_ mapView: MKMapView, didDeselect view: MKAnnotationView) {
-//            let ann = view.annotation as! AppAnnotation
-//
-//            if let url = ann.imageUrl {
-//                SDWebImageManager.shared.loadImage(with: url, options: .highPriority, progress: nil) { (image: UIImage?, _, error, _, _, _) in
-//                    let img = image!.resize(withSize: CGSize(width: 50, height: 50), contentMode: .contentAspectFill)!
-//                    let img2 = self.makeFrame(forImage: img, label: nil)
-////                    view.image = img2.0
-//                }
-//            }
-//        }
-
-
 
         func makeFrame(forImage image: UIImage, withShadow shadow: Bool = false, label: String? = nil) -> (UIImage, CGPoint) {
             let imageSize: CGSize = image.size
@@ -147,18 +166,18 @@ struct MapView: UIViewRepresentable {
             let bottomOfTriangle = CGPoint(x: triangle.midX, y: triangle.maxY)
             let diff = CGPoint(x: center.x - bottomOfTriangle.x, y: center.y - bottomOfTriangle.y)
 
-            let img = UIGraphicsImageRenderer(size: canvasSize).image { (ctx) in
+            let img = UIGraphicsImageRenderer(size: canvasSize).image { ctx in
 
 //                let bg = UIBezierPath(rect: CGRect(origin: CGPoint(), size: canvasSize))
 //                UIColor.blue.withAlphaComponent(0.5).setFill()
 //                bg.fill()
 
-                let bezierPath = UIBezierPath.init(roundedRect: rect, cornerRadius: 5)
+                let bezierPath = UIBezierPath(roundedRect: rect, cornerRadius: 5)
                 let t = drawTriangle(rect: triangle)
                 bezierPath.append(t)
 
                 ctx.cgContext.saveGState()
-                if (shadow) {
+                if shadow {
                     ctx.cgContext.setShadow(offset: CGSize(width: 0, height: 1), blur: 6, color: UIColor.black.cgColor)
                 } else {
                     ctx.cgContext.setShadow(offset: CGSize(width: 0, height: 1), blur: 4, color: UIColor.black.withAlphaComponent(0.4).cgColor)
@@ -238,10 +257,9 @@ struct MapView: UIViewRepresentable {
     }
 }
 
-
 struct MapViewStuff: View {
     var body: some View {
-        MapView(onSelect: { _ in })
+        MapView(camera: .constant(.all), onSelect: { _ in })
     }
 }
 
