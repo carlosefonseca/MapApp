@@ -23,9 +23,13 @@ extension MKMapView {
 
         if shouldIncludeOverlays {
             let annotations = annotationSet.filter { !($0 is MKUserLocation) }
-            annotations.forEach { annotation in
-                let circle = MKCircle(center: annotation.coordinate, radius: 1)
-                mapOverlays.append(circle)
+            if annotations.count == 1 {
+                mapOverlays.append(MKCircle(center: annotations.first!.coordinate, radius: 100))
+            } else {
+                annotations.forEach { annotation in
+                    let circle = MKCircle(center: annotation.coordinate, radius: 1)
+                    mapOverlays.append(circle)
+                }
             }
         }
 

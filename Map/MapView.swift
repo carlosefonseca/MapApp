@@ -12,27 +12,38 @@ import SDWebImage
 import SDWebImageMapKit
 import SwiftUI
 
-struct MapView: UIViewRepresentable {
-    enum Camera {
-        case all
-        case single(annotation: MKAnnotation)
-        case multiple(annotations: [MKAnnotation])
-        case free // (center: CLLocationCoordinate2D, altitude: CLLocationDistance)
+func ==(lhs: MapView.Camera, rhs: MapView.Camera) -> Bool {
+    switch (lhs, rhs) {
+    case (.all, .all), (.free, .free):
+        return true
+    case (let .single(lAnn), .single(let rAnn)):
+        return lAnn == rAnn
+    case (let .multiple(lAnn), .multiple(let rAnn)):
+        return lAnn == rAnn
+    default:
+        return false
     }
+}
 
-    @Binding var camera: Camera
+struct MapView: UIViewRepresentable {
+    enum Camera: Equatable {
+        case all
+        case single(annotation: AppAnnotation)
+        case multiple(annotations: [AppAnnotation])
+        case free
+    }
 
     var onSelect: (AppFeature) -> Void
     @EnvironmentObject var state: Document
-
     @EnvironmentObject var viewState: ViewState
-
-//    @EnvironmentObject var leftPad: Int
 
     let mapEdgePadding: UIEdgeInsets = UIEdgeInsets(top: 100, left: 50, bottom: 50, right: 50)
 
     func makePadding() -> UIEdgeInsets {
-        return UIEdgeInsets(top: mapEdgePadding.top, left: mapEdgePadding.left + CGFloat(viewState.leftPad), bottom: mapEdgePadding.bottom, right: mapEdgePadding.right)
+        return UIEdgeInsets(top: mapEdgePadding.top,
+                            left: mapEdgePadding.left + viewState.leftPad,
+                            bottom: mapEdgePadding.bottom + viewState.bottomPad,
+                            right: mapEdgePadding.right)
     }
 
     var locationManager = CLLocationManager()
@@ -53,12 +64,12 @@ struct MapView: UIViewRepresentable {
         if uiView.annotations.isEmpty {
             uiView.addAnnotations(state.pointAnnotations)
         }
-        switch camera {
+        switch viewState.camera {
         case .all:
             uiView.setVisibleMapRectToFitAllAnnotations(edgePadding: makePadding())
         case .single(let annotation):
             uiView.selectAnnotation(annotation, animated: true)
-            uiView.setCamera(MKMapCamera(lookingAtCenter: annotation.coordinate, fromDistance: 100, pitch: 0, heading: 0), animated: true)
+            uiView.setVisibleMapRectToFitAnnotations([annotation], edgePadding: makePadding())
         case .multiple(let annotations):
             uiView.selectedAnnotations = annotations
             uiView.setVisibleMapRectToFitAnnotations(annotations, edgePadding: makePadding())
@@ -95,7 +106,6 @@ struct MapView: UIViewRepresentable {
                 SDWebImageManager.shared.loadImage(with: url, options: .highPriority, progress: nil) { (image: UIImage?, _, _, _, _, _) in
                     let img = image!.resize(withSize: CGSize(width: 50, height: 50), contentMode: .contentAspectFill)!
                     let img2 = self.makeFrame(forImage: img, label: nil)
-
                     annotationView?.set(image: img2.0)
                 }
 
@@ -121,21 +131,27 @@ struct MapView: UIViewRepresentable {
         func mapViewRegionDidChangeFromUserInteraction(mapView: MKMapView) -> Bool {
             if let gestureRecognizers = mapView.subviews.first?.gestureRecognizers {
                 return gestureRecognizers.contains { (gr) -> Bool in
-                    /* gr.state == .began || */ gr.state == .ended || gr.state == .changed
+                    gr.state == .ended || gr.state == .changed
                 }
             }
             return false
         }
 
         func mapViewDidChangeVisibleRegion(_ mapView: MKMapView) {
-            if case .free = parent.camera {} else {
+            if case .free = parent.viewState.camera {} else {
                 if mapViewRegionDidChangeFromUserInteraction(mapView: mapView) {
-//                let center = mapView.camera.centerCoordinate
-//                let altitude = mapView.camera.altitude
-                    parent.camera = .free
+                    parent.viewState.camera = .free
                 }
             }
         }
+        
+//        func mapView(_ mapView: MKMapView, regionDidChangeAnimated animated: Bool) {
+//            if case .free = parent.viewState.camera {} else {
+//                if mapViewRegionDidChangeFromUserInteraction(mapView: mapView) {
+//                    parent.viewState.camera = .free
+//                }
+//            }
+//        }
 
         func mapView(_ mapView: MKMapView, didSelect view: MKAnnotationView) {
             let ann = view.annotation as! AppAnnotation
@@ -167,10 +183,6 @@ struct MapView: UIViewRepresentable {
             let diff = CGPoint(x: center.x - bottomOfTriangle.x, y: center.y - bottomOfTriangle.y)
 
             let img = UIGraphicsImageRenderer(size: canvasSize).image { ctx in
-
-//                let bg = UIBezierPath(rect: CGRect(origin: CGPoint(), size: canvasSize))
-//                UIColor.blue.withAlphaComponent(0.5).setFill()
-//                bg.fill()
 
                 let bezierPath = UIBezierPath(roundedRect: rect, cornerRadius: 5)
                 let t = drawTriangle(rect: triangle)
@@ -231,10 +243,6 @@ struct MapView: UIViewRepresentable {
         }
 
         func draw(text: String, at textRect: CGRect) {
-//            let bg = UIBezierPath(rect: textRect)
-//            UIColor.lightGray.withAlphaComponent(0.5).setFill()
-//            bg.fill()
-
             let ctx = UIGraphicsGetCurrentContext()!
             ctx.setShadow(offset: .zero, blur: 5, color: UIColor.white.cgColor)
 
@@ -259,7 +267,7 @@ struct MapView: UIViewRepresentable {
 
 struct MapViewStuff: View {
     var body: some View {
-        MapView(camera: .constant(.all), onSelect: { _ in })
+        MapView(onSelect: { _ in })
     }
 }
 

@@ -32,10 +32,12 @@ struct DocumentView: View {
                 Text("File Name").foregroundColor(.secondary)
                 Text(document.fileURL.lastPathComponent)
                 Spacer()
-                Button(action: { self.camera = .all }) { Image(systemName: "minus.magnifyingglass") }.padding(.trailing)
+                if (self.viewState.camera != .all) {
+                    Button(action: { self.viewState.camera = .all }) { Image(systemName: "minus.magnifyingglass") }.padding(.trailing)
+                }
             }.frame(height: 40, alignment: Alignment.center)
 
-            MapView(camera: $camera, onSelect: onSelect).edgesIgnoringSafeArea(.all)
+            MapView(onSelect: onSelect).edgesIgnoringSafeArea(.all)
         }
     }
 }

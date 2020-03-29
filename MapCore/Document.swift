@@ -13,10 +13,10 @@ import MapKit
 
 public class Document: UIDocument, ObservableObject {
     @Published public var points: [AppFeature] = []
-    @Published public var pointAnnotations: [MKAnnotation] = []
+    @Published public var pointAnnotations: [AppAnnotation] = []
     @Published public var isDownloadingImages = false
     @Published public var selectedPoint: AppFeature? = nil
-    @Published public var selectedAnnotation: MKAnnotation? = nil
+    @Published public var selectedAnnotation: AppAnnotation? = nil
 
     override public func contents(forType typeName: String) throws -> Any {
         // Encode your document with an instance of NSData or NSFileWrapper
@@ -39,13 +39,18 @@ public class Document: UIDocument, ObservableObject {
         self.selectedAnnotation = self.pointAnnotations[idx]
     }
 
+    public func annotation(forFeature feature: AppFeature) -> AppAnnotation {
+        let idx = self.points.firstIndex(where: { $0 == feature })!
+        return self.pointAnnotations[idx]
+    }
+    
     func select(annotation: AppAnnotation) {
 
     }
 }
 
 class Parser {
-    fileprivate func createPointAnnotation(_ p: (Point), _ f: AppFeature) -> MKAnnotation? {
+    fileprivate func createPointAnnotation(_ p: (Point), _ f: AppFeature) -> AppAnnotation? {
         let annotation = AppAnnotation(point: p)
         annotation.title = f.title ?? "Unnamed"
         annotation.subtitle = f.subtitle

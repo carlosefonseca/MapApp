@@ -12,7 +12,9 @@ import SwiftUI
 import UIKit
 
 class ViewState: ObservableObject {
-    @Published var leftPad = 0
+    @Published var leftPad = CGFloat(0)
+    @Published var bottomPad = CGFloat(0)
+    @Published var camera: MapView.Camera = .all
 }
 
 class MapsLikeViewController: UIViewController, SearchViewControllerDelegate {
@@ -62,8 +64,6 @@ class MapsLikeViewController: UIViewController, SearchViewControllerDelegate {
 
     // MARK: - UIViewController
 
-//    @Published var selection : An
-
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -84,7 +84,6 @@ class MapsLikeViewController: UIViewController, SearchViewControllerDelegate {
         let documentViewController = UIHostingController(rootView: view)
 
         searchVC.document = document
-//        searchVC.mapView = view
 
         searchVC.delegate = self
 
@@ -96,7 +95,7 @@ class MapsLikeViewController: UIViewController, SearchViewControllerDelegate {
     }
 
     func searchViewControllerDidSelectARow(_ feature: AppFeature) {
-        document.select(point: feature)
+        viewState.camera = MapView.Camera.single(annotation: document.annotation(forFeature: feature))
     }
 
     func searchViewControllerDidSelectCloseAction(_ searchViewController: SearchViewController) {}
@@ -113,16 +112,14 @@ class MapsLikeViewController: UIViewController, SearchViewControllerDelegate {
             trailingConstraint.isActive = false
             widthConstraint.isActive = true
             viewState.leftPad = 375
-//            notches = [OverlayNotch.maximum]
-//            overlayContainerController.moveOverlay
+            viewState.bottomPad = 0
             overlayController.moveOverlay(toNotchAt: notches.firstIndex(of: .maximum)!, animated: false)
         } else {
             trailingConstraint.isActive = true
             widthConstraint.isActive = false
             viewState.leftPad = 0
-//            notches = OverlayNotch.allCases
+            viewState.bottomPad = view.bounds.size.height / 4
         }
-//        overlayController.invalidateNotchHeights()
     }
 
     var notches = OverlayNotch.allCases

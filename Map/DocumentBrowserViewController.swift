@@ -77,11 +77,5 @@ class DocumentBrowserViewController: UIDocumentBrowserViewController, UIDocument
             }
         })
     }
-
-//    func closeDocument(_ document: Document) {
-//        dismiss(animated: true) {
-//            document.close(completionHandler: nil)
-//        }
-//    }
 }
 
