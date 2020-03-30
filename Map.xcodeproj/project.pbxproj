@@ -15,6 +15,8 @@
 		2D252B5C24298937006AA1CF /* SearchViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2D252B5B24298937006AA1CF /* SearchViewController.swift */; };
 		2D252B5F2429894E006AA1CF /* DetailHeaderView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2D252B5D2429894E006AA1CF /* DetailHeaderView.xib */; };
 		2D252B602429894E006AA1CF /* DetailHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2D252B5E2429894E006AA1CF /* DetailHeaderView.swift */; };
+		2D834427243116BD002CF718 /* FeatureDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2D834426243116BD002CF718 /* FeatureDetailView.swift */; };
+		2D83442A243131ED002CF718 /* SDWebImageSwiftUI in Frameworks */ = {isa = PBXBuildFile; productRef = 2D834429243131ED002CF718 /* SDWebImageSwiftUI */; };
 		2D84C7412427C2930083BD3B /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2D84C7402427C2930083BD3B /* AppDelegate.swift */; };
 		2D84C7432427C2930083BD3B /* DocumentBrowserViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2D84C7422427C2930083BD3B /* DocumentBrowserViewController.swift */; };
 		2D84C7452427C2930083BD3B /* DocumentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2D84C7442427C2930083BD3B /* DocumentView.swift */; };
@@ -112,6 +114,7 @@
 		2D252B5B24298937006AA1CF /* SearchViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SearchViewController.swift; sourceTree = "<group>"; };
 		2D252B5D2429894E006AA1CF /* DetailHeaderView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = DetailHeaderView.xib; sourceTree = "<group>"; };
 		2D252B5E2429894E006AA1CF /* DetailHeaderView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DetailHeaderView.swift; sourceTree = "<group>"; };
+		2D834426243116BD002CF718 /* FeatureDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeatureDetailView.swift; sourceTree = "<group>"; };
 		2D84C73D2427C2930083BD3B /* Map.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Map.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		2D84C7402427C2930083BD3B /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		2D84C7422427C2930083BD3B /* DocumentBrowserViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DocumentBrowserViewController.swift; sourceTree = "<group>"; };
@@ -144,6 +147,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				2D83442A243131ED002CF718 /* SDWebImageSwiftUI in Frameworks */,
 				2D84C7B22427D7ED0083BD3B /* SDWebImage in Frameworks */,
 				2D252B5A2429853C006AA1CF /* OverlayContainer in Frameworks */,
 				2D84C7B42427D7ED0083BD3B /* SDWebImageMapKit in Frameworks */,
@@ -227,6 +231,7 @@
 				2D252B5E2429894E006AA1CF /* DetailHeaderView.swift */,
 				2D252B5D2429894E006AA1CF /* DetailHeaderView.xib */,
 				2D84C7B52427D8490083BD3B /* UIKitExtensions */,
+				2D834426243116BD002CF718 /* FeatureDetailView.swift */,
 			);
 			path = Map;
 			sourceTree = "<group>";
@@ -321,6 +326,7 @@
 				2D84C7B12427D7ED0083BD3B /* SDWebImage */,
 				2D84C7B32427D7ED0083BD3B /* SDWebImageMapKit */,
 				2D252B592429853C006AA1CF /* OverlayContainer */,
+				2D834429243131ED002CF718 /* SDWebImageSwiftUI */,
 			);
 			productName = Map;
 			productReference = 2D84C73D2427C2930083BD3B /* Map.app */;
@@ -450,6 +456,7 @@
 				2D84C7A72427D64B0083BD3B /* XCRemoteSwiftPackageReference "geos" */,
 				2D84C7B02427D7ED0083BD3B /* XCRemoteSwiftPackageReference "SDWebImage" */,
 				2D252B582429853C006AA1CF /* XCRemoteSwiftPackageReference "OverlayContainer" */,
+				2D834428243131ED002CF718 /* XCRemoteSwiftPackageReference "SDWebImageSwiftUI" */,
 			);
 			productRefGroup = 2D84C73E2427C2930083BD3B /* Products */;
 			projectDirPath = "";
@@ -513,6 +520,7 @@
 				2D252B552429826C006AA1CF /* UIViewController+Children.swift in Sources */,
 				2D84C7432427C2930083BD3B /* DocumentBrowserViewController.swift in Sources */,
 				2D84C7AF2427D7410083BD3B /* MapView.swift in Sources */,
+				2D834427243116BD002CF718 /* FeatureDetailView.swift in Sources */,
 				2D252B572429827C006AA1CF /* UIView+Constraints.swift in Sources */,
 				2D252B5324298101006AA1CF /* MapsLikeViewController.swift in Sources */,
 				2D252B512429785E006AA1CF /* SceneDelegate.swift in Sources */,
@@ -999,6 +1007,14 @@
 				minimumVersion = 3.3.1;
 			};
 		};
+		2D834428243131ED002CF718 /* XCRemoteSwiftPackageReference "SDWebImageSwiftUI" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/SDWebImage/SDWebImageSwiftUI.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 1.2.0;
+			};
+		};
 		2D84C79C2427D4760083BD3B /* XCRemoteSwiftPackageReference "GEOSwift" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/GEOSwift/GEOSwift.git";
@@ -1038,6 +1054,11 @@
 			isa = XCSwiftPackageProductDependency;
 			package = 2D252B582429853C006AA1CF /* XCRemoteSwiftPackageReference "OverlayContainer" */;
 			productName = OverlayContainer;
+		};
+		2D834429243131ED002CF718 /* SDWebImageSwiftUI */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 2D834428243131ED002CF718 /* XCRemoteSwiftPackageReference "SDWebImageSwiftUI" */;
+			productName = SDWebImageSwiftUI;
 		};
 		2D84C79D2427D4760083BD3B /* GEOSwift */ = {
 			isa = XCSwiftPackageProductDependency;

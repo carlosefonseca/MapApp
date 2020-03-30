@@ -6,10 +6,10 @@
 //  Copyright © 2020 carlosefonseca. All rights reserved.
 //
 
-import UIKit
 import GEOSwift
 import GEOSwiftMapKit
 import MapKit
+import UIKit
 
 public class Document: UIDocument, ObservableObject {
     @Published public var points: [AppFeature] = []
@@ -18,100 +18,117 @@ public class Document: UIDocument, ObservableObject {
     @Published public var selectedPoint: AppFeature? = nil
     @Published public var selectedAnnotation: AppAnnotation? = nil
 
-    override public func contents(forType typeName: String) throws -> Any {
+    public override func contents(forType typeName: String) throws -> Any {
         // Encode your document with an instance of NSData or NSFileWrapper
         return Data()
     }
 
-    override public func load(fromContents contents: Any, ofType typeName: String?) throws {
+    public override func load(fromContents contents: Any, ofType typeName: String?) throws {
         // Load your document from contents
         print(typeName!)
 
         if let data = contents as? Data {
             Parser().load(data: data, document: self)
         }
-
     }
 
     public func select(point: AppFeature) {
-        self.selectedPoint = point
-        let idx = self.points.firstIndex(where: { $0 == point })!
-        self.selectedAnnotation = self.pointAnnotations[idx]
+        selectedPoint = point
+        let idx = points.firstIndex(where: { $0 == point })!
+        selectedAnnotation = pointAnnotations[idx]
     }
 
     public func annotation(forFeature feature: AppFeature) -> AppAnnotation {
-        let idx = self.points.firstIndex(where: { $0 == feature })!
-        return self.pointAnnotations[idx]
+        let idx = points.firstIndex(where: { $0 == feature })!
+        return pointAnnotations[idx]
     }
-    
-    func select(annotation: AppAnnotation) {
 
-    }
+    func select(annotation: AppAnnotation) {}
 }
 
 class Parser {
-    fileprivate func createPointAnnotation(_ p: (Point), _ f: AppFeature) -> AppAnnotation? {
-        let annotation = AppAnnotation(point: p)
-        annotation.title = f.title ?? "Unnamed"
-        annotation.subtitle = f.subtitle
-        annotation.imageUrl = f.imageUrl
-        annotation.imageSymbol = f.imageSymbol
-        annotation.point = f
-        return annotation
+    fileprivate func createPointAnnotation(_ f: AppFeature) -> AppAnnotation? {
+        return AppAnnotation(feature: f)
     }
 
     func load(data: Data, document: Document) {
         let jsonDecoder = JSONDecoder()
 
         if let featureCollection = try? jsonDecoder.decode(FeatureCollection.self, from: data) {
-
             let features: [Feature] = featureCollection.features
             document.points = features.compactMap { AppFeature(feature: $0) }
 
-            document.pointAnnotations = document.points.compactMap { f in
-                switch (f.geometry) {
-                case .point(let p):
-                    return createPointAnnotation(p, f)
-                default:
-                    print("Not supported: \(f)")
-                    return nil
-                }
-            }
+            document.pointAnnotations = document.points.map { f in AppAnnotation(feature: f) }
         }
     }
 }
 
 public struct AppFeature {
-    public let feature: Feature
+    public var title: String?
+    public var subtitle: String?
+    public var description: String?
+    public var imageUrl: URL?
 
-    public var geometry: Geometry? {
-        feature.geometry
+    public var imageSymbol: String?
+
+    public var lat: CLLocationDegrees
+    public var lng: CLLocationDegrees
+
+    func coordinate() -> CLLocationCoordinate2D {
+        return CLLocationCoordinate2D(latitude: lat, longitude: lng)
+    }
+}
+
+public extension AppFeature {
+    init?(feature: Feature) {
+        if case .point(let point) = feature.geometry {
+            self.init(title: feature.getStringProperty(named: "title"),
+                      subtitle: feature.getStringProperty(named: "subtitle"),
+                      description: feature.getStringProperty(named: "description"),
+                      imageUrl: feature.getUrlProperty(named: "image_url"),
+                      imageSymbol: feature.getStringProperty(named: "image_symbol"),
+                      lat: point.y,
+                      lng: point.x)
+        } else {
+            return nil
+        }
     }
 
-    fileprivate func getStringProperty(named name: String) -> String? {
-        if case .string(let str) = feature.properties?[name] {
+    init(title: String, subtitle: String? = nil, description: String? = nil, imageUrl: URL? = nil, lat: CLLocationDegrees, lng: CLLocationDegrees) {
+        self.init(title: title, subtitle: subtitle, description: description, imageUrl: imageUrl, imageSymbol: nil, lat: lat, lng: lng)
+    }
+}
+
+extension AppFeature: Equatable {}
+
+public class AppAnnotation: MKPointAnnotation {
+    public var imageUrl: URL?
+    public var imageSymbol: String?
+    public var feature: AppFeature?
+
+    public init(feature: AppFeature) {
+        super.init()
+        self.feature = feature
+        coordinate = feature.coordinate()
+        title = feature.title ?? "Unnamed"
+        subtitle = feature.subtitle
+        imageUrl = feature.imageUrl
+        imageSymbol = feature.imageSymbol
+    }
+}
+
+extension Feature {
+    func getStringProperty(named name: String) -> String? {
+        if case .string(let str) = properties?[name] {
             return str.replacingOccurrences(of: "\\n", with: "\n")
         }
         return nil
     }
 
-    public var title: String? { getStringProperty(named: "title") }
-    public var subtitle: String? { getStringProperty(named: "subtitle") }
-    public var description: String? { getStringProperty(named: "description") }
-    public var imageUrl: URL? {
-        if let url = getStringProperty(named: "image_url") {
+    func getUrlProperty(named name: String) -> URL? {
+        if let url = getStringProperty(named: name) {
             return URL(string: url)
         }
         return nil
     }
-
-    var imageSymbol: String? { getStringProperty(named: "image_symbol") }
-}
-
-extension AppFeature: Equatable { }
-
-public class AppAnnotation: MKPointAnnotation {
-    public var imageUrl: URL?
-    public var imageSymbol: String?
-    public var point: AppFeature?
 }

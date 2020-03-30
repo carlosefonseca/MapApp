@@ -155,7 +155,7 @@ struct MapView: UIViewRepresentable {
 
         func mapView(_ mapView: MKMapView, didSelect view: MKAnnotationView) {
             let ann = view.annotation as! AppAnnotation
-            parent.onSelect(ann.point!)
+            parent.onSelect(ann.feature!)
         }
 
         func makeFrame(forImage image: UIImage, withShadow shadow: Bool = false, label: String? = nil) -> (UIImage, CGPoint) {
